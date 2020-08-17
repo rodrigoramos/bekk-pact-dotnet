@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\CommonProps.targets" />
   <PropertyGroup>
-    <TargetFramework>netstandard1.3</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Title>BEKK Pact Provider Test tool</Title>
     <Description>A library for implementing Pact provider tests</Description>
   </PropertyGroup>

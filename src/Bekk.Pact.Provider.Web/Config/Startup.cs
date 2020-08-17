@@ -4,8 +4,6 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bekk.Pact.Provider.Web.Config
@@ -13,8 +11,9 @@ namespace Bekk.Pact.Provider.Web.Config
     public class Startup
     {
         private readonly Type inner;
+
         private List<Claim> claims = new List<Claim>();
-        private StartupMethods methods;
+        // private StartupMethods methods;
 
         public Startup(Type inner)
         {
@@ -23,14 +22,12 @@ namespace Bekk.Pact.Provider.Web.Config
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            SetStartupMethods(services.BuildServiceProvider())
-                ?.ConfigureServicesDelegate.Invoke(services);
-
             ConfigureServicesCallback?.Invoke(services);
-            if(inner != null)
+            if (inner != null)
             {
                 services.AddMvc().AddApplicationPart(inner.GetTypeInfo().Assembly).AddControllersAsServices();
             }
+
             return services.BuildServiceProvider();
         }
 
@@ -38,7 +35,6 @@ namespace Bekk.Pact.Provider.Web.Config
         {
             ConfigureClaims(app);
             ConfigureCallback?.Invoke(app);
-            methods?.ConfigureDelegate.Invoke(app);
         }
 
 
@@ -50,6 +46,7 @@ namespace Bekk.Pact.Provider.Web.Config
             claims.Add(claim);
             return this;
         }
+
         public Startup AddClaim(string type, string value) => AddClaim(new Claim(type, value));
 
 
@@ -58,21 +55,9 @@ namespace Bekk.Pact.Provider.Web.Config
             if (!claims.Any()) return;
             app.Use(async (ctx, next) =>
             {
-                ctx.User = new ClaimsPrincipal(new []{ new ClaimsIdentity(claims, "Bearer")});
+                ctx.User = new ClaimsPrincipal(new[] {new ClaimsIdentity(claims, "Bearer")});
                 await next.Invoke();
             });
-        }
-
-        private StartupMethods SetStartupMethods(IServiceProvider services)
-        {
-            if (methods == null && inner != null)
-            {
-                methods = StartupLoader.LoadMethods(
-                    services,
-                    inner,
-                    services.GetRequiredService<IHostingEnvironment>().EnvironmentName);
-            }
-            return methods;
         }
     }
 }

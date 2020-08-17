@@ -14,12 +14,12 @@ namespace Bekk.Pact.Provider.Web.Extensions
 {
     public static class WebHostBuilderExtensions
     {
-        public static IWebHostBuilder UseStartup(this IWebHostBuilder hostBuilder, 
-            IPact pact, 
+        public static IWebHostBuilder UseStartup(this IWebHostBuilder hostBuilder,
+            IPact pact,
             IEnumerable<Claim> claims = null,
             Action<IServiceCollection> configureServices = null,
             Action<IApplicationBuilder> configure = null,
-            Type startupType=null)
+            Type startupType = null)
         {
             if (pact == null) throw new ArgumentNullException(nameof(pact));
             if (pact.Configuration != null)
@@ -30,20 +30,25 @@ namespace Bekk.Pact.Provider.Web.Extensions
                     factory.AddProvider(log);
                 });
             }
+
             var startup = new Startup(startupType)
             {
                 ConfigureCallback = configure,
                 ConfigureServicesCallback = configureServices
             };
-            foreach (var claim in claims??Enumerable.Empty<Claim>())
+            
+            foreach (var claim in claims ?? Enumerable.Empty<Claim>())
             {
                 startup.AddClaim(claim);
             }
+
             hostBuilder.ConfigureServices(sc => startup.ConfigureServices(sc));
             hostBuilder.Configure(startup.Configure);
+            hostBuilder.UseStartup(startupType);
             return hostBuilder;
         }
-        public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder, 
+
+        public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder,
             IPact pact,
             IEnumerable<Claim> claims = null,
             Action<IServiceCollection> configureServices = null,
@@ -52,17 +57,16 @@ namespace Bekk.Pact.Provider.Web.Extensions
             return UseStartup(hostBuilder, pact, claims, configureServices, configure, typeof(T));
         }
 
-        public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder, 
+        public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder,
             IPact pact,
             IProviderStateSetup providerStateSetup) where T : class
-            {
-                return UseStartup<T>(
-                    hostBuilder,
-                    pact,
-                    providerStateSetup.GetClaims(pact.ProviderState),
-                    providerStateSetup.ConfigureServices(pact.ProviderState),
-                    null);
-            }
-
+        {
+            return UseStartup<T>(
+                hostBuilder,
+                pact,
+                providerStateSetup.GetClaims(pact.ProviderState),
+                providerStateSetup.ConfigureServices(pact.ProviderState),
+                null);
+        }
     }
 }

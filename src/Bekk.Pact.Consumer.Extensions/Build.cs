@@ -14,7 +14,7 @@ namespace Bekk.Pact.Consumer
         {
             var stack = new StackTrace();
             var caller = stack.GetFrame(1).GetMethod();
-            return PactBuilder.Build(title)
+            return PactBuilder.Build(description)
                 .Between(GetAttribute<ProviderNameAttribute>(caller)?.Name)
                 .And(GetAttribute<ConsumerNameAttribute>(caller)?.Name);
         }
