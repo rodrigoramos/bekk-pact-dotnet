@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionF
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer.Extensions", "src\Bekk.Pact.Consumer.Extensions\Bekk.Pact.Consumer.Extensions.csproj", "{56E23316-6515-4BE4-8084-FD21A5DFE034}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "e2e", "e2e", "{F9E6378C-DED9-4DD8-AD0A-4DFE554FF550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Tests.e2e", "tests\e2e\Bekk.Pact.Tests.e2e\Bekk.Pact.Tests.e2e.csproj", "{3A50D339-5F0A-4B4E-923B-2D309EE3E3ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,9 +62,15 @@ Global
 		{7DCF312B-9442-420F-B67A-727A3629B7AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DCF312B-9442-420F-B67A-727A3629B7AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DCF312B-9442-420F-B67A-727A3629B7AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A50D339-5F0A-4B4E-923B-2D309EE3E3ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A50D339-5F0A-4B4E-923B-2D309EE3E3ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A50D339-5F0A-4B4E-923B-2D309EE3E3ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A50D339-5F0A-4B4E-923B-2D309EE3E3ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8401B888-8A5D-43F5-83E9-34CB9B8A8628} = {B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}
 		{AD55C65F-CDE3-46A1-9F8B-CA5BC3594069} = {B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}
+		{F9E6378C-DED9-4DD8-AD0A-4DFE554FF550} = {B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}
+		{3A50D339-5F0A-4B4E-923B-2D309EE3E3ED} = {F9E6378C-DED9-4DD8-AD0A-4DFE554FF550}
 	EndGlobalSection
 EndGlobal
