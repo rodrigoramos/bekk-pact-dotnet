@@ -10,22 +10,23 @@ namespace Bekk.Pact.Provider.Web.Config
 {
     public class Startup
     {
-        private readonly Type inner;
+        private readonly Type _inner;
 
         private List<Claim> claims = new List<Claim>();
-        // private StartupMethods methods;
 
         public Startup(Type inner)
         {
-            this.inner = inner;
+            _inner = inner;
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             ConfigureServicesCallback?.Invoke(services);
-            if (inner != null)
+            if (_inner != null)
             {
-                services.AddMvc().AddApplicationPart(inner.GetTypeInfo().Assembly).AddControllersAsServices();
+                services.AddMvc()
+                    .AddApplicationPart(_inner.GetTypeInfo().Assembly)
+                    .AddControllersAsServices();
             }
 
             return services.BuildServiceProvider();
@@ -37,8 +38,8 @@ namespace Bekk.Pact.Provider.Web.Config
             ConfigureCallback?.Invoke(app);
         }
 
-
         public Action<IApplicationBuilder> ConfigureCallback { private get; set; }
+        
         public Action<IServiceCollection> ConfigureServicesCallback { private get; set; }
 
         public Startup AddClaim(Claim claim)
@@ -48,7 +49,6 @@ namespace Bekk.Pact.Provider.Web.Config
         }
 
         public Startup AddClaim(string type, string value) => AddClaim(new Claim(type, value));
-
 
         private void ConfigureClaims(IApplicationBuilder app)
         {
