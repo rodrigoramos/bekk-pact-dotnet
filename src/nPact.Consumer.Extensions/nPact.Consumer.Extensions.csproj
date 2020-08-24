@@ -6,7 +6,7 @@
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Title>BEKK Pact Consumer test tool extensions</Title>
+    <Title>nPact Consumer test tool extensions</Title>
     <Description>An extension library to nPact.Consumer</Description>
   </PropertyGroup>
 </Project>

@@ -42,7 +42,7 @@ namespace nPact.Consumer.Rendering
             json.Add("interactions", new JArray(pact.Interactions.Select(RenderInteraction)));
             json.Add("metadata", new JObject(
                 new JProperty("pactSpecificationVersion", "1.0.0"),
-                new JProperty("bekkPactVersion", GetAssemblyVersion().ToString())
+                new JProperty("nPactVersion", GetAssemblyVersion().ToString())
                 ));
             return json;
         }

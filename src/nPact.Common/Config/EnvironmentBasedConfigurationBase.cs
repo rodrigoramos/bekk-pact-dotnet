@@ -8,7 +8,7 @@ namespace nPact.Common.Config
     public abstract class EnvironmentBasedConfigurationBase : IConfiguration
     {
         private string[] separators = new[]{":", "__"};
-        protected string Prefix { get; } = "Bekk:Pact";
+        protected string Prefix { get; } = "nPact:Pact";
         public Uri BrokerUri => GetUriValue(null, nameof(BrokerUri));
 
         public string BrokerUserName => GetValue(nameof(BrokerUserName));

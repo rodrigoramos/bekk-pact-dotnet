@@ -13,7 +13,7 @@
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Title>BEKK Pact Provider test tool helper</Title>
+    <Title>nPact Provider test tool helper</Title>
     <Description>A helper library for implementing Pact tests using nPact.Provider package</Description>
   </PropertyGroup>
 </Project>

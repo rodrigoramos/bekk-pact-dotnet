@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
   <PropertyGroup>
-    <Title>BEKK Pact Common Library</Title>
+    <Title>nPact Common Library</Title>
     <Description>A base code library for implementing Pact tests</Description>
   </PropertyGroup>
   <ItemGroup>

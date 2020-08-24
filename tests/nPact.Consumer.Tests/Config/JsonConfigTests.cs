@@ -13,12 +13,12 @@ namespace nPact.Consumer.Tests.Config
         [Fact]
         public void LoadConfigFile_PopulatesProperties()
         {
-            const string brokerUri = "https://www.bekk.no:7896/";
+            const string brokerUri = "https://pact-broker/";
             const string userName = "some_user";
             const string mockUri = "http://localhost:9000/";
             const string logFilePath = "somePath";
             var json = new JObject(
-                new JProperty("Bekk",
+                new JProperty("nPact",
                     new JObject(
                         new JProperty("Pact", 
                             new JObject(

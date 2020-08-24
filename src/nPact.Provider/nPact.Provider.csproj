@@ -2,7 +2,7 @@
   <Import Project="..\CommonProps.targets" />
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Title>BEKK Pact Provider Test tool</Title>
+    <Title>nPact Provider Test tool</Title>
     <Description>A library for implementing Pact provider tests</Description>
   </PropertyGroup>
   <ItemGroup>

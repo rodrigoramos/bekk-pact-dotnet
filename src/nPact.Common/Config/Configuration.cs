@@ -34,7 +34,7 @@ namespace nPact.Common.Config
                 using(var reader = new JsonTextReader(stream))
                 {
                     var json = JToken.ReadFrom(reader);
-                    var pact = json["Bekk"]?["Pact"];
+                    var pact = json["nPact"]?["Pact"];
                     if(pact != null)
                     {
                         ReadFromJson(pact);
