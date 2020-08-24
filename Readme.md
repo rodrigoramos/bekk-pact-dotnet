@@ -1,4 +1,4 @@
-Pact for dotnet core
+nPact: A Pact testing tool for dotnet core
 ====================
 
 This repo is a fork from [Bekk-pact-dotnet](https://github.com/bekk/bekk-pact-dotnet). Contains updated version for this tool.
