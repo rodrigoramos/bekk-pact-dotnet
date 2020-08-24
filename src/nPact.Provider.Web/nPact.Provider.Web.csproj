@@ -15,5 +15,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <Title>nPact Provider test tool helper</Title>
     <Description>A helper library for implementing Pact tests using nPact.Provider package</Description>
+    <Company />
+    <Product>nPact</Product>
+    <PackageVersion>0.1.0.0-beta</PackageVersion>
+    <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
+    <Copyright>Rodrigo Ramos</Copyright>
+    <PackageProjectUrl>https://github.com/rodrigoramos/nPact</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/rodrigoramos/nPact/blob/master/Licence.txt</PackageLicenseUrl>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/rodrigoramos/nPact</RepositoryUrl>
   </PropertyGroup>
 </Project>
