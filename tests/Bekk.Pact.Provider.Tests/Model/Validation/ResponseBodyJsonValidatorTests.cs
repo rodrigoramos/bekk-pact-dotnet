@@ -12,7 +12,7 @@ namespace Bekk.Pact.Provider.Tests.Model.Validation
 
         public ResponseBodyJsonValidatorTests()
         {
-            configuration = Bekk.Pact.Provider.Config.Configuration.With.Comparison(StringComparison.InvariantCultureIgnoreCase);  
+            configuration = Configuration.With.Comparison(StringComparison.InvariantCultureIgnoreCase);  
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace Bekk.Pact.Provider.Tests.Model.Validation
 
             var result = target.Validate(expected, actual);
 
-            Assert.Equal(result, "Body is not supposed to be empty.");
+            Assert.Equal("Body is not supposed to be empty.", result);
         }
 
         [Fact]
@@ -48,7 +48,7 @@ namespace Bekk.Pact.Provider.Tests.Model.Validation
 
             var result = target.Validate(expected, actual);
 
-            Assert.Equal(result, "Body is not parsable to object");
+            Assert.Equal("Body is not parsable to object", result);
         }
         
         [Fact]
@@ -60,7 +60,7 @@ namespace Bekk.Pact.Provider.Tests.Model.Validation
 
             var result = target.Validate(expected, actual);
 
-            Assert.Equal(result, "Body is not parsable to array");
+            Assert.Equal("Body is not parsable to array", result);
         }
 
         [Fact]

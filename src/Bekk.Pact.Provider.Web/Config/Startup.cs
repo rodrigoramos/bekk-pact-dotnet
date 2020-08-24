@@ -4,33 +4,31 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Bekk.Pact.Provider.Web.Config
 {
     public class Startup
     {
-        private readonly Type inner;
+        private readonly Type _inner;
+
         private List<Claim> claims = new List<Claim>();
-        private StartupMethods methods;
 
         public Startup(Type inner)
         {
-            this.inner = inner;
+            _inner = inner;
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            SetStartupMethods(services.BuildServiceProvider())
-                ?.ConfigureServicesDelegate.Invoke(services);
-
             ConfigureServicesCallback?.Invoke(services);
-            if(inner != null)
+            if (_inner != null)
             {
-                services.AddMvc().AddApplicationPart(inner.GetTypeInfo().Assembly).AddControllersAsServices();
+                services.AddMvc()
+                    .AddApplicationPart(_inner.GetTypeInfo().Assembly)
+                    .AddControllersAsServices();
             }
+
             return services.BuildServiceProvider();
         }
 
@@ -38,11 +36,10 @@ namespace Bekk.Pact.Provider.Web.Config
         {
             ConfigureClaims(app);
             ConfigureCallback?.Invoke(app);
-            methods?.ConfigureDelegate.Invoke(app);
         }
 
-
         public Action<IApplicationBuilder> ConfigureCallback { private get; set; }
+        
         public Action<IServiceCollection> ConfigureServicesCallback { private get; set; }
 
         public Startup AddClaim(Claim claim)
@@ -50,29 +47,17 @@ namespace Bekk.Pact.Provider.Web.Config
             claims.Add(claim);
             return this;
         }
-        public Startup AddClaim(string type, string value) => AddClaim(new Claim(type, value));
 
+        public Startup AddClaim(string type, string value) => AddClaim(new Claim(type, value));
 
         private void ConfigureClaims(IApplicationBuilder app)
         {
             if (!claims.Any()) return;
             app.Use(async (ctx, next) =>
             {
-                ctx.User = new ClaimsPrincipal(new []{ new ClaimsIdentity(claims, "Bearer")});
+                ctx.User = new ClaimsPrincipal(new[] {new ClaimsIdentity(claims, "Bearer")});
                 await next.Invoke();
             });
-        }
-
-        private StartupMethods SetStartupMethods(IServiceProvider services)
-        {
-            if (methods == null && inner != null)
-            {
-                methods = StartupLoader.LoadMethods(
-                    services,
-                    inner,
-                    services.GetRequiredService<IHostingEnvironment>().EnvironmentName);
-            }
-            return methods;
         }
     }
 }
