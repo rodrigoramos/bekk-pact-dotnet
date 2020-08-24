@@ -5,7 +5,7 @@
     <ProjectReference Include="..\Bekk.Pact.Common\Bekk.Pact.Common.csproj" />
   </ItemGroup>
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Title>BEKK Pact Consumer test tool extensions</Title>
     <Description>An extension library to Bekk.Pact.Consumer</Description>
   </PropertyGroup>
