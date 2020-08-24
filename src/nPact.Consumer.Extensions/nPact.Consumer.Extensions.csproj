@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\nPact.Common\nPact.Common.csproj" />
+    <ProjectReference Include="..\nPact.Consumer\nPact.Consumer.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Title>BEKK Pact Consumer test tool extensions</Title>
+    <Description>An extension library to nPact.Consumer</Description>
+  </PropertyGroup>
+</Project>

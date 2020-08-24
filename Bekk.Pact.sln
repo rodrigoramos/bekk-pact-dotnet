@@ -3,23 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider", "src\Bekk.Pact.Provider\Bekk.Pact.Provider.csproj", "{7DCF312B-9442-420F-B67A-727A3629B7AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Provider", "src\nPact.Provider\nPact.Provider.csproj", "{7DCF312B-9442-420F-B67A-727A3629B7AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer", "src\Bekk.Pact.Consumer\Bekk.Pact.Consumer.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Consumer", "src\nPact.Consumer\nPact.Consumer.csproj", "{5AE1BEAB-409B-4B20-A3CD-F41F8E778A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Common", "src\Bekk.Pact.Common\Bekk.Pact.Common.csproj", "{62FB8B31-219C-4A02-A66E-4FAF90AEBBBB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Common", "src\nPact.Common\nPact.Common.csproj", "{62FB8B31-219C-4A02-A66E-4FAF90AEBBBB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider.Web", "src\Bekk.Pact.Provider.Web\Bekk.Pact.Provider.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Provider.Web", "src\nPact.Provider.Web\nPact.Provider.Web.csproj", "{C2352B8A-D8E3-4D82-AFF6-DC023D87744B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Provider.Tests", "tests\Bekk.Pact.Provider.Tests\Bekk.Pact.Provider.Tests.csproj", "{8401B888-8A5D-43F5-83E9-34CB9B8A8628}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Provider.Tests", "tests\nPact.Provider.Tests\nPact.Provider.Tests.csproj", "{8401B888-8A5D-43F5-83E9-34CB9B8A8628}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer.Tests", "tests\Bekk.Pact.Consumer.Tests\Bekk.Pact.Consumer.Tests.csproj", "{AD55C65F-CDE3-46A1-9F8B-CA5BC3594069}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Consumer.Tests", "tests\nPact.Consumer.Tests\nPact.Consumer.Tests.csproj", "{AD55C65F-CDE3-46A1-9F8B-CA5BC3594069}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFolder", "SolutionFolder", "{E9639A90-5889-4933-AD31-8CFA1EB2757D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bekk.Pact.Consumer.Extensions", "src\Bekk.Pact.Consumer.Extensions\Bekk.Pact.Consumer.Extensions.csproj", "{56E23316-6515-4BE4-8084-FD21A5DFE034}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Consumer.Extensions", "src\nPact.Consumer.Extensions\nPact.Consumer.Extensions.csproj", "{56E23316-6515-4BE4-8084-FD21A5DFE034}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
