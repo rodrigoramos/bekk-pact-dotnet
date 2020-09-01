@@ -72,8 +72,9 @@ namespace nPact.Consumer.Matching
 
         protected bool CompareAcceptEmptyAsNull(string left, string right)
         {
-            if(string.IsNullOrEmpty(left)) return string.IsNullOrEmpty(right);
-            return left.Equals(right);
+            if (string.IsNullOrEmpty(left)) return string.IsNullOrEmpty(right);
+            return string.Equals(left, right,
+                Config.BodyKeyStringComparison.GetValueOrDefault(StringComparison.CurrentCultureIgnoreCase));
         }
     }
 }
