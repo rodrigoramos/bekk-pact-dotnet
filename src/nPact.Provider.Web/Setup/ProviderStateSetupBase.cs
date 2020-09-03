@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Reflection;
-using nPact.Provider.Web.Config;
 using Microsoft.Extensions.DependencyInjection;
 using nPact.Common.Contracts;
 using nPact.Common.Extensions;
@@ -11,10 +10,10 @@ using nPact.Provider.Web.Contracts;
 
 namespace nPact.Provider.Web.Setup
 {
-    public abstract class ProviderStateSetupBase : IProviderStateSetup
+    public abstract class ProviderStateSetupBase : ProviderStateSetup
     {
         protected IProviderConfiguration Configuration { get; set; } 
-        public virtual Action<IServiceCollection> ConfigureServices(string providerState)
+        public override Action<IServiceCollection> ConfigureServices(string providerState)
         {
             var allMethods = GetMethods(providerState);
             var callBacks = allMethods
@@ -36,7 +35,7 @@ namespace nPact.Provider.Web.Setup
                 }
             };
         }
-        public virtual IEnumerable<Claim> GetClaims(string providerState) =>
+        public override IEnumerable<Claim> GetClaims(string providerState) =>
              GetMethods(providerState).Where(IsClaimsMethod).SelectMany(m => (IEnumerable<Claim>) m.Invoke(this,new object[]{} ));
 
         private IEnumerable<MethodInfo> GetMethods(string key) => 
