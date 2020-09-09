@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 using nPact.Provider.Model;
 using Xunit;
 
-namespace nPact.Provider.Tests
+namespace nPact.Provider.Tests.Model
 {
     public class RequestTest
     {
@@ -54,12 +54,6 @@ namespace nPact.Provider.Tests
             };
 
             var message = request.BuildMessage();
-
-            /*
-             * 
-                    // .WithHeader("X-Correlation-ID", request.CorrelationId)
-                    // .WithHeader(RequestHeaderAbcProxy.ABC_ANTI_CSRF_LOGIN, request.AbcAntiCsrfLogin)
-             */
 
             message.Content.Headers.Should().BeEquivalentTo(new Dictionary<string, string[]>
             {

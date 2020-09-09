@@ -3,7 +3,7 @@ using System.Net;
 
 namespace nPact.Provider.Model
 {
-    class Response
+    public class Response
     {
         public HttpStatusCode Status { get; set; }
         public IDictionary<string, string> Headers { get; set; }
