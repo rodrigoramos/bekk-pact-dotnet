@@ -6,7 +6,7 @@ using System.Text;
 
 namespace nPact.Provider.Model
 {
-    class Request
+    public class Request
     {
         public string Method { get; set; }
         public string Path { get; set; }
@@ -15,30 +15,35 @@ namespace nPact.Provider.Model
 
         public HttpRequestMessage BuildMessage()
         {
-            var message = new HttpRequestMessage();
-            message.Method = new HttpMethod(Method);
-            foreach(var header in Headers)
+            var message = new HttpRequestMessage
             {
-                message.Headers.Add(header.Key, header.Value);
+                Method = new HttpMethod(Method)
+            };
+
+            foreach (var (key, value) in Headers)
+            {
+                // HttpRequestHeader.TryParse()
+                // message.Headers.
+                if (!string.Equals(key, "Content-Type", StringComparison.OrdinalIgnoreCase))
+                    message.Headers.Add(key, value);
             }
+
             message.RequestUri = new Uri(Path, UriKind.Relative);
-            if(Body != null)
-            {
-                var header = Headers.TryGetValue("Content-Type", out var contentType) ? contentType : null;
-                switch(header?.Split(new[]{';'}).FirstOrDefault())
-                {
-                    case "application/json":
-                        message.Content = new StringContent(Body.ToString(), Encoding.UTF8);
-                        break;
-                    case "application/x-www-form-urlencoded":
-                    case "":
-                    case null:
-                        message.Content = new FormUrlEncodedContent(Body.ToObject<Dictionary<string, string>>());
-                        break;
-                    default:
-                        throw new NotImplementedException($"Content type {header} is not implemented.");
-                }
-            }
+
+            if (Body == null) return message;
+
+            var (_, contentTypeValue) =
+                Headers.FirstOrDefault(x => string.Equals(x.Key, "Content-Type", StringComparison.OrdinalIgnoreCase));
+
+            if (string.IsNullOrEmpty(contentTypeValue) ||
+                contentTypeValue.Contains("application/x-www-form-urlencoded",
+                    StringComparison.OrdinalIgnoreCase))
+                message.Content = new FormUrlEncodedContent(Body.ToObject<Dictionary<string, string>>());
+            else if (contentTypeValue.Contains("application/json", StringComparison.OrdinalIgnoreCase))
+                message.Content = new StringContent(Body.ToString(), Encoding.UTF8, "application/json");
+            else
+                throw new NotImplementedException($"Content type {contentTypeValue} is not implemented.");
+
             return message;
         }
     }

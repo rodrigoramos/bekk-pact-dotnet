@@ -8,7 +8,7 @@ using Newtonsoft.Json.Serialization;
 
 namespace nPact.Consumer.Rendering
 {
-    class JsonBody : IJsonable
+    public sealed class JsonBody : IJsonable
     {
         private object body;
 

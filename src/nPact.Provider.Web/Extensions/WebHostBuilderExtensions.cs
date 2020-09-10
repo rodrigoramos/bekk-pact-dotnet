@@ -5,17 +5,19 @@ using System.Security.Claims;
 using nPact.Provider.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using nPact.Provider.Web.Config;
 using nPact.Provider.Web.Contracts;
+using Microsoft.AspNetCore.TestHost;
 
 namespace nPact.Provider.Web.Extensions
 {
     public static class WebHostBuilderExtensions
     {
         public static IWebHostBuilder UseStartup(this IWebHostBuilder hostBuilder,
-            IPact pact,
+            IPact pact, Action<WebHostBuilderContext, IConfigurationBuilder> configureAppConfig = null,
             IEnumerable<Claim> claims = null,
             Action<IServiceCollection> configureServices = null,
             Action<IApplicationBuilder> configure = null,
@@ -42,31 +44,36 @@ namespace nPact.Provider.Web.Extensions
                 startup.AddClaim(claim);
             }
 
-            hostBuilder.ConfigureServices(sc => startup.ConfigureServices(sc));
+            hostBuilder.ConfigureTestServices(sc => startup.ConfigureServices(sc));
             hostBuilder.Configure(startup.Configure);
             hostBuilder.UseStartup(startupType);
+            
+            if (configureAppConfig != null)
+                hostBuilder.ConfigureAppConfiguration(configureAppConfig);
+            
             return hostBuilder;
         }
 
         public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder,
-            IPact pact,
+            IPact pact, Action<WebHostBuilderContext, IConfigurationBuilder> configureAppConfig,
             IEnumerable<Claim> claims = null,
             Action<IServiceCollection> configureServices = null,
             Action<IApplicationBuilder> configure = null) where T : class
         {
-            return UseStartup(hostBuilder, pact, claims, configureServices, configure, typeof(T));
+            return UseStartup(hostBuilder, pact, configureAppConfig, claims, configureServices, configure, typeof(T));
         }
 
         public static IWebHostBuilder UseStartup<T>(this IWebHostBuilder hostBuilder,
             IPact pact,
-            IProviderStateSetup providerStateSetup) where T : class
+            ProviderStateSetup providerStateSetup) where T : class
         {
             return UseStartup<T>(
                 hostBuilder,
-                pact,
+                pact, 
+                providerStateSetup.ConfigureAppConfig(),
                 providerStateSetup.GetClaims(pact.ProviderState),
                 providerStateSetup.ConfigureServices(pact.ProviderState),
-                null);
+                providerStateSetup.Configure());
         }
     }
 }
