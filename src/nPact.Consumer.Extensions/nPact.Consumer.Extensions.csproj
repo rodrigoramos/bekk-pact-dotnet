@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\nPact.Common\nPact.Common.csproj" />
+    <ProjectReference Include="..\nPact.Consumer\nPact.Consumer.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Title>nPact Consumer test tool extensions</Title>
+    <Description>An extension library to nPact.Consumer</Description>
+    <Company />
+    <Product>nPact</Product>
+    <PackageVersion>0.1.0.0-beta</PackageVersion>
+    <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
+    <Copyright />
+    <PackageProjectUrl>https://github.com/rodrigoramos/nPact</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/rodrigoramos/nPact/blob/rrs/rename-project/Licence.txt</PackageLicenseUrl>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/rodrigoramos/nPact</RepositoryUrl>
+  </PropertyGroup>
+</Project>

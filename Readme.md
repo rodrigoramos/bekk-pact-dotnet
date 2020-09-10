@@ -1,5 +1,7 @@
-Pact for dotnet core
+nPact: A Pact testing tool for dotnet core
 ====================
+
+This repo is a fork from [Bekk-pact-dotnet](https://github.com/bekk/bekk-pact-dotnet). Contains updated version for this tool.
 
 This is a tool for building consumer driven test 
 using the [Pact](https://docs.pact.io/) protocol.
@@ -20,41 +22,41 @@ transfer of pacts between the consumers and the provider. I suggest using [the d
 This implementation consists of five nuget packages.
 
 ![Nuget packages dependency map](./docs/packages.svg "Packages")
-### Bekk.Pact.Common
+### nPact.Common
 This package contains mostly base classes and interfaces.
 It is referenced from the other packages.
-### Bekk.Pact.Consumer
+### nPact.Consumer
 This package enables creating consumer tests. 
 The consumer defines the pact by specifying
 a service request and a expected reply. and publishes the pact when it is asserted.
-### Bekk.Pact.Consumer.Extensions
+### nPact.Consumer.Extensions
 A package with some extension methods available in 
 dotnet standard 2.0.
-### Bekk.Pact.Provider
+### nPact.Provider
 This package enables creating provider test.
 The provider fetches the pacts and verifies them by replaying the
 requests and comparing the result.
-### Bekk.Pact.Provider.Web
+### nPact.Provider.Web
 This package provides tools to make it easier to setup a provider test and verifying the pacts.
 
 ## Configuration
 The configuration is defined in the interfaces `IConsumerConfiguration` and `IProviderConfiguration`.
-The recommended way to implement these are with the configuration builders `Bekk.Pact.Consumer.Config.Configuration` and `Bekk.Pact.Provider.Config.Configuration`. They have methods for defining all settings, 
+The recommended way to implement these are with the configuration builders `nPact.Consumer.Config.Configuration` and `nPact.Provider.Config.Configuration`. They have methods for defining all settings, 
 reading from json files and it also reads environment variables. 
 
 Environment variables with override values provided in the configuration builder.
 ### Settings
 | Member | Environment variable | Description |
 |-------:|----------------------|-------------|
-| `BrokerUri` | `Bekk:Pact:BrokerUri` | The address to the pact broker service. This is used to publish and fetch the pacts. |
-| `BrokerUserName` | `Bekk:Pact:BrokerUserName` | The credentials for the broker. |
-| `BrokerPassword` | `Bekk:Pact:BrokerPassword` | The credentials for the broker. |
-| `PublishPath` | `Bekk:Pact:PublishPath` | The file path to store and fetch published pacts (when storing locally). |
+| `BrokerUri` | `nPact:Pact:BrokerUri` | The address to the pact broker service. This is used to publish and fetch the pacts. |
+| `BrokerUserName` | `nPact:Pact:BrokerUserName` | The credentials for the broker. |
+| `BrokerPassword` | `nPact:Pact:BrokerPassword` | The credentials for the broker. |
+| `PublishPath` | `nPact:Pact:PublishPath` | The file path to store and fetch published pacts (when storing locally). |
 | `Log` |  | The output for logging. For instance: `(txt) => System.Console.WriteLine(txt)` |
-| `LogLevel` | `Bekk:Pact:LogLevel` | The log level treshold. |
-| `LogFile` | `Bekk:Pact:LogFile` | The location of a local log file to append to. |
-| `BodyKeyStringComparison` | `Bekk:Pact:BodyKeyStringComparison` | The comparison type used when matching property names in the message body. |
-| `MockServiceBaseUri` | `Bekk:Pact:Consumer:MockServiceBaseUri` | The base uri used by the tcp listener in the consumer tests. |
+| `LogLevel` | `nPact:Pact:LogLevel` | The log level treshold. |
+| `LogFile` | `nPact:Pact:LogFile` | The location of a local log file to append to. |
+| `BodyKeyStringComparison` | `nPact:Pact:BodyKeyStringComparison` | The comparison type used when matching property names in the message body. |
+| `MockServiceBaseUri` | `nPact:Pact:Consumer:MockServiceBaseUri` | The base uri used by the tcp listener in the consumer tests. |
 
 The environment variables can use either colon or double underscores as separators.
 
@@ -63,7 +65,7 @@ Json configuration (read using `Configuration.With.ConfigurationFile(filePath)`)
 ```json
 
 {
-    Bekk: {
+    nPact: {
         Pact: {
             LogLevel: "Verbose",
             Consumer: {
@@ -80,16 +82,16 @@ To publish and fetch pacts, `BrokerUri` and/or `PublishPath` must be set.
 ## Consumer tests
 The consumer tests defines the pacts and it's interactions.
 
-This is done by using the `Bekk.Pact.Consumer.Builders.PactBuilder` and populate it in a fluent syntax. 
+This is done by using the `nPact.Consumer.Builders.PactBuilder` and populate it in a fluent syntax. 
 
 Start the builder with `PactBuilder.Build(description)`, where the description is a human readable description of the interaction.
 The method `InPact()` returns the actual pact object. This is a disposable object, and should be wrapped in a `using` statement.
 
-In the `Bekk.Pact.Consumer.Extensions` package is a helper class
+In the `nPact.Consumer.Extensions` package is a helper class
 to create a builder using the `ConsumerNameAttribute` and `ProviderNameAttribute` to read consumer and provider name:
-`Bekk.Pact.Consumer.Build.Pact(description)`
+`nPact.Consumer.Build.Pact(description)`
 
-The tests will use a context (`Bekk.Pact.Consumer.Server.Context`) that hosts the httplistener and publishes the pacts afterwards.
+The tests will use a context (`nPact.Consumer.Server.Context`) that hosts the httplistener and publishes the pacts afterwards.
 It also contains the shared configuration. (The PactBuilder can take a configuration object with local overrides.)
 The context can be created in a base class, a singleton or in other constructs the test
 framework provides. It should be disposed after use.
@@ -97,18 +99,18 @@ framework provides. It should be disposed after use.
 This is an example in [NUnit](http://nunit.org/) using a base test class to share a common setup and context between the tests.
 
 ```C#
-using Bekk.Pact.Consumer.Config;
+using nPact.Consumer.Config;
 using NUnit.Framework;
 
 namespace Example.Tests
 {
     public abstract class PactTestsBase
     {
-        private Bekk.Pact.Consumer.Server.Context context;
+        private nPact.Consumer.Server.Context context;
         [TestFixtureSetUp]
         public void FixtureSetUp()
         {
-            context = new Bekk.Pact.Consumer.Server.Context(
+            context = new nPact.Consumer.Server.Context(
                     Configuration.With
                         .BrokerUrl("https://mybroker.pact.dius.com.au")
                         .PublishPathInTemp("published_pacts")
@@ -127,13 +129,13 @@ namespace Example.Tests
 ```
 And a test class inheriting from it:
 ```C#
-using Bekk.Pact.Consumer.Builders;
+using nPact.Consumer.Builders;
 using NUnit.Framework;
 using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Bekk.Pact.Consumer.Extensions;
+using nPact.Consumer.Extensions;
 using Moq;
 using Example.Web.Client;
 using Example.Web.Clients;
@@ -213,7 +215,7 @@ The steps required are in short:
 - Verifying the pacts against the server.
 
 The simplest way to achieve this is to use the
-`Bekk.Pact.Provider.Web` package.
+`nPact.Provider.Web` package.
 
 Following is an example using [XUnit](https://xunit.github.io/).
 Here the server is setup with the `StartUp` class.
@@ -224,9 +226,9 @@ The pacts are fetched from a pact broker server at `https://pact-broker.url`.
 ```C#
 using System.Collections.Generic;
 using System.Linq;
-using Bekk.Pact.Provider.Config;
-using Bekk.Pact.Provider.Contracts;
-using Bekk.Pact.Provider.Web;
+using nPact.Provider.Config;
+using nPact.Provider.Contracts;
+using nPact.Provider.Web;
 using TimekeeperSvc.Web;
 using Xunit;
 using Xunit.Abstractions;
@@ -264,15 +266,15 @@ namespace TimekeeperSvc.Tests.Pacts
 
 ```
 
-The provider setup implements the interface `Bekk.Pact.Provider.Web.Contracts.IProviderStateSetup`. It handles the setup of claims and services [mocking] required by each pact (identified with the provider setup string).
-It is possible to inherit from the class `Bekk.Pact.Provider.Web.Setup.ProviderStateSetupBase`. It will use methods decorated with `Bekk.Pact.Provider.Web.Setup.ProviderStateAttribute` to identify the provider state strings. Typically you need one method per pact.
+The provider setup implements the interface `nPact.Provider.Web.Contracts.IProviderStateSetup`. It handles the setup of claims and services [mocking] required by each pact (identified with the provider setup string).
+It is possible to inherit from the class `nPact.Provider.Web.Setup.ProviderStateSetupBase`. It will use methods decorated with `nPact.Provider.Web.Setup.ProviderStateAttribute` to identify the provider state strings. Typically you need one method per pact.
 ```C#
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using Bekk.Pact.Provider.Web.Config;
-using Bekk.Pact.Provider.Web.Setup;
+using nPact.Provider.Web.Config;
+using nPact.Provider.Web.Setup;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 

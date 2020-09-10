@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
+    <Copyright>Rodrigo Ramos</Copyright>
+    <PackageProjectUrl>https://github.com/rodrigoramos/nPact</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/rodrigoramos/nPact/blob/master/Licence.txt</PackageLicenseUrl>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/rodrigoramos/nPact/</RepositoryUrl>
+    <PackageVersion>0.1.0.0-beta</PackageVersion>
+    <Company />
+    <Product>nPact</Product>
+  </PropertyGroup>
+  <PropertyGroup>
+    <Title>nPact Common Library</Title>
+    <Description>A base code library for implementing Pact tests</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.json" Version="12.0.3" />
+    <PackageReference Include="System.IO.FileSystem" Version="4.3.0" />
+  </ItemGroup>
+</Project>

@@ -260,7 +260,7 @@
          y="22.97485"
          x="125.08242"
          id="tspan4514"
-         sodipodi:role="line">Bekk.Pact.Common</tspan></text>
+         sodipodi:role="line">nPact.Common</tspan></text>
     <text
        transform="scale(0.89243332,1.1205319)"
        id="text4520"
@@ -272,7 +272,7 @@
          y="29.935923"
          x="118.90948"
          id="tspan4518"
-         sodipodi:role="line">netstandard1.3</tspan></text>
+         sodipodi:role="line">netstandard2.1</tspan></text>
     <flowRoot
        transform="matrix(0.26458333,0,0,0.26458333,4.6772361,-8.7769153)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -311,7 +311,7 @@
              y="26.56316"
              x="119.24911"
              id="tspan4612"
-             sodipodi:role="line">Bekk.Pact.Provider</tspan></text>
+             sodipodi:role="line">nPact.Provider</tspan></text>
         <text
            transform="scale(0.89243332,1.1205319)"
            id="text4618"
@@ -323,7 +323,7 @@
              y="33.71389"
              x="113.369"
              id="tspan4616"
-             sodipodi:role="line">netstandard1.3</tspan></text>
+             sodipodi:role="line">netstandard2.1</tspan></text>
         <flowRoot
            transform="matrix(0.26458333,0,0,0.26458333,-0.26726953,-4.543582)"
            style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -357,7 +357,7 @@
          id="tspan2456"
          x="180.26218"
          y="63.037121"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469">Bekk.Pact.Common</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469">nPact.Common</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
@@ -369,7 +369,7 @@
          id="tspan2460"
          x="171.31917"
          y="72.115646"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951">netstandard1.3</tspan></text>
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951">netstandard2.1</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot2470"
@@ -405,7 +405,7 @@
            y="26.56316"
            x="119.24911"
            id="tspan158"
-           sodipodi:role="line">Bekk.Pact.Consumer</tspan></text>
+           sodipodi:role="line">nPact.Consumer</tspan></text>
       <text
          transform="scale(0.89243332,1.1205319)"
          id="text164"
@@ -417,7 +417,7 @@
            y="33.71389"
            x="113.369"
            id="tspan162"
-           sodipodi:role="line">netstandard1.3</tspan></text>
+           sodipodi:role="line">netstandard2.1</tspan></text>
       <flowRoot
          transform="matrix(0.26458333,0,0,0.26458333,-0.26726953,-4.543582)"
          style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -450,7 +450,7 @@
          y="99.397812"
          x="70.37561"
          id="tspan184"
-         sodipodi:role="line">Bekk.Pact.Consumer.Extensions</tspan></text>
+         sodipodi:role="line">nPact.Consumer.Extensions</tspan></text>
     <text
        transform="scale(0.89243332,1.1205319)"
        id="text190"
@@ -462,7 +462,7 @@
          y="110.39815"
          x="66.94899"
          id="tspan188"
-         sodipodi:role="line">netstandard2.0</tspan></text>
+         sodipodi:role="line">netstandard2.1</tspan></text>
     <flowRoot
        transform="matrix(0.26458333,0,0,0.26458333,-41.694039,81.383572)"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none"
@@ -494,7 +494,7 @@
          id="tspan208"
          x="180.26218"
          y="99.397812"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469">Bekk.Pact.Provider.Web</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5.64444447px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.14147469">nPact.Provider.Web</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.12715951"
@@ -506,7 +506,7 @@
          id="tspan212"
          x="171.31917"
          y="110.39815"
-         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951">netstandard1.6</tspan></text>
+         style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.12715951">netcoreapp3.1</tspan></text>
     <flowRoot
        xml:space="preserve"
        id="flowRoot222"

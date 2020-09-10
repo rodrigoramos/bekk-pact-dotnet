@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Title>nPact Provider Test tool</Title>
+    <Description>A library for implementing Pact provider tests</Description>
+    <PackageVersion>0.1.0.0-beta</PackageVersion>
+    <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
+    <Copyright>Rodrigo Ramos</Copyright>
+    <PackageProjectUrl>https://github.com/rodrigoramos/nPact</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/rodrigoramos/nPact/blob/master/Licence.txt</PackageLicenseUrl>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/rodrigoramos/nPact</RepositoryUrl>
+    <Company />
+    <Product>nPact</Product>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.json" Version="12.0.3" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\nPact.Common\nPact.Common.csproj" />
+  </ItemGroup>
+</Project>

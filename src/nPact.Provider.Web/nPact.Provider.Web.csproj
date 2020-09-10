@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProps.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\nPact.Common\nPact.Common.csproj" />
+    <ProjectReference Include="..\nPact.Provider\nPact.Provider.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.7" />
+    <PackageReference Include="System.Security.Claims" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Aspnetcore.Testhost" Version="3.1.7" />
+    <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Title>nPact Provider test tool helper</Title>
+    <Description>A helper library for implementing Pact tests using nPact.Provider package</Description>
+    <Company />
+    <Product>nPact</Product>
+    <PackageVersion>0.1.0.0-beta</PackageVersion>
+    <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
+    <Copyright>Rodrigo Ramos</Copyright>
+    <PackageProjectUrl>https://github.com/rodrigoramos/nPact</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/rodrigoramos/nPact/blob/master/Licence.txt</PackageLicenseUrl>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/rodrigoramos/nPact</RepositoryUrl>
+  </PropertyGroup>
+</Project>
