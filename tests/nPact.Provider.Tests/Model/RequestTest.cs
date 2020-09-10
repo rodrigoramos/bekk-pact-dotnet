@@ -48,7 +48,7 @@ namespace nPact.Provider.Tests.Model
                 {
                     {"content-type", "application/json; charset=utf-8"},
                     {"X-Correlation-ID", System.Guid.NewGuid().ToString()},
-                    {"__ABC_ANTI_CSRF_LOGIN__", "312.123.123-12"}
+                    {"__HEADER_WITH_ALOT_UNDERSCORE__", "value-12"}
                 },
                 Body = JObject.Parse(json)
             };
