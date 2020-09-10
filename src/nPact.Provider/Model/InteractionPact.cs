@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using nPact.Common.Contracts;
 using nPact.Common.Extensions;
@@ -13,7 +12,7 @@ using nPact.Provider.Model.Validation;
 
 namespace nPact.Provider.Model
 {
-    class InteractionPact : IPact
+    public class InteractionPact : IPact
     {
         private readonly Interaction interaction;
         private readonly JObject json;
@@ -25,9 +24,13 @@ namespace nPact.Provider.Model
             Description = interaction.Description;
             this.json = json;
         }
+
         public string ProviderState => interaction.ProviderState;
 
         public async Task<ITestResult> Verify(HttpClient client)
+            => await Verify(new HttpClientWrapper(client));
+
+        public async Task<ITestResult> Verify(HttpClientWrapper client)
         {
             Configuration.LogSafe(LogLevel.Scarce, ToString());
             Configuration.LogSafe(LogLevel.Verbose, $"Provider state: {ProviderState}");
@@ -36,9 +39,12 @@ namespace nPact.Provider.Model
             var errors = new Result(ToString(), interaction, expected);
             if (response.StatusCode != expected.Status)
             {
-                errors.Add(ValidationTypes.StatusCode,$"Status code was {response.StatusCode}. Expected {expected.Status}.");
+                errors.Add(ValidationTypes.StatusCode,
+                    $"Status code was {response.StatusCode}. Expected {expected.Status}.");
             }
-            errors.Add(ValidationTypes.Headers, new ResponseHeadersValidator().Validate(expected, response.Content.Headers));
+
+            errors.Add(ValidationTypes.Headers,
+                new ResponseHeadersValidator().Validate(expected, response.Content.Headers));
             errors.Add(ValidationTypes.Body, await ValidateBody(response.Content, expected));
             errors.Add(response);
             return errors;
@@ -51,7 +57,8 @@ namespace nPact.Provider.Model
         private async Task<string> ValidateBody(HttpContent actual, Response expected)
         {
             var contentType = GetHeader("content-type", expected.Headers)?.Split(';').Select(p => p.Trim()).ToArray();
-            if(contentType != null && contentType.Any() && contentType[0] == "application/json"){
+            if (contentType != null && contentType.Any() && contentType[0] == "application/json")
+            {
                 try
                 {
                     var actualAsString = await actual.ReadAsStringAsync();
@@ -65,19 +72,22 @@ namespace nPact.Provider.Model
             }
             else
             {
-                throw new NotImplementedException($"Only content type json is implemented. This seems to be {string.Join(", ", contentType)}");
+                throw new NotImplementedException(
+                    $"Only content type json is implemented. This seems to be {string.Join(", ", contentType?.ToString() ?? "empty")}");
             }
         }
 
-        private string GetHeader(string header, IDictionary<string,string> headers)
+        private string GetHeader(string header, IDictionary<string, string> headers)
         {
-            var values =  headers.Where(h => h.Key.Equals(header, StringComparison.OrdinalIgnoreCase))
-                                 .Select(h => h.Value).ToList();
-            if(values.Any()) return string.Join(",", values);
+            var values = headers.Where(h => h.Key.Equals(header, StringComparison.OrdinalIgnoreCase))
+                .Select(h => h.Value).ToList();
+            if (values.Any()) return string.Join(",", values);
             return null;
         }
 
-        public override string ToString() => $"{interaction.Consumer}: {interaction.Request.Method} {interaction.Request.Path} [{interaction.Description}]";
+        public override string ToString() =>
+            $"{interaction.Consumer}: {interaction.Request.Method} {interaction.Request.Path} [{interaction.Description}]";
+
         string IPact.ToString(bool asJson) => asJson ? json.ToString() : ToString();
     }
 }

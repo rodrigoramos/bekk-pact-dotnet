@@ -23,12 +23,12 @@ namespace nPact.Provider.Web
     public class PactRunner<TStartup> where TStartup : class
     {
         private readonly IProviderConfiguration configuration;
-        private readonly IProviderStateSetup setup;
+        private readonly ProviderStateSetup setup;
         /// <summary>
         /// Creates a new wrapper object to setup a test server and fetch all pacts. Configuration is read solely from environment variables.
         /// </summary>
         /// <param name="setup">A setup object responsible for mocking in front of each verification.</param>
-        public PactRunner(IProviderStateSetup setup) : this(null, setup)
+        public PactRunner(ProviderStateSetup setup) : this(null, setup)
         {
         }
         /// <summary>
@@ -36,7 +36,7 @@ namespace nPact.Provider.Web
         /// </summary>
         /// <param name="configuration"> A configuration object</param>
         /// <param name="setup">A setup object responsible for mocking in front of each verification.</param>
-        public PactRunner(IProviderConfiguration configuration, IProviderStateSetup setup)
+        public PactRunner(IProviderConfiguration configuration, ProviderStateSetup setup)
         {
             this.setup = setup;
             this.configuration = configuration ?? new EnvironmentBasedConfiguration();
