@@ -22,7 +22,6 @@ namespace nPact.Provider.Model
         public Result(string title, IPactInformation info, ValidationTypes types, params string[] errors)
         {
             this.errors = errors.ToList();
-            ;
             ErrorTypes = types;
             Title = title;
             Description = info.Description;
