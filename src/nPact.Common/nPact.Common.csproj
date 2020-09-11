@@ -9,6 +9,7 @@
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/rodrigoramos/nPact/</RepositoryUrl>
     <Version>1.0.0-rc</Version>
+    <PackageVersion>1.0.0-rc</PackageVersion>
     <Company />
     <Product>nPact</Product>
   </PropertyGroup>
