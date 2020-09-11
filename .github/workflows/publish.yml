@@ -24,6 +24,8 @@ jobs:
           PROJECT_FILE_PATH: src/nPact.Provider.Web/nPact.Provider.Web.csproj
           PACKAGE_NAME: nPact.Provider.Web
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          TAG_COMMIT: false
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
 
       - name: publish Provider
         id: publish_nuget_provider
@@ -32,6 +34,8 @@ jobs:
           PROJECT_FILE_PATH: src/nPact.Provider/nPact.Provider.csproj
           PACKAGE_NAME: nPact.Provider
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          TAG_COMMIT: false
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
 
       - name: publish Consumer
         id: publish_nuget_consumer
@@ -40,6 +44,8 @@ jobs:
           PROJECT_FILE_PATH: src/nPact.Consumer/nPact.Consumer.csproj
           PACKAGE_NAME: nPact.Consumer
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          TAG_COMMIT: false
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
 
       - name: publish Consumer.Extensions
         id: publish_nuget_consumer_extensions
@@ -48,4 +54,6 @@ jobs:
           PROJECT_FILE_PATH: src/nPact.Consumer.Extensions/nPact.Consumer.Extensions.csproj
           PACKAGE_NAME: nPact.Consumer.Extensionsn
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          TAG_COMMIT: false
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
 
