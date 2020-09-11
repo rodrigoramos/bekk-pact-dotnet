@@ -6,7 +6,6 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <Company />
     <Product>nPact</Product>
-    <Version>1.0.1-rc</Version>
     <PackageVersion>1.0.1-rc</PackageVersion>
     <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
     <Copyright>Rodrigo Ramos</Copyright>

@@ -18,8 +18,7 @@
     <Description>A helper library for implementing Pact tests using nPact.Provider package</Description>
     <Company />
     <Product>nPact</Product>
-    <Version>1.0.1-rc</Version>
-    <PackageVersion>1.0.1-rc</PackageVersion>
+    <PackageVersion>1.1-rc</PackageVersion>
     <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
     <Copyright>Rodrigo Ramos</Copyright>
     <PackageProjectUrl>https://github.com/rodrigoramos/nPact</PackageProjectUrl>
