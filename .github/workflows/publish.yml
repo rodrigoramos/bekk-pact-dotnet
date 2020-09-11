@@ -1,0 +1,51 @@
+name: publish-on-release
+
+on:
+ release:
+  types: [published]
+
+jobs:
+  publish:
+    name: build, pack & publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.101
+
+      - name: publish Provider.Web
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/nPact.Provider.Web/nPact.Provider.Web.csproj
+          PACKAGE_NAME: nPact.Provider.Web
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+      - name: publish Provider
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/nPact.Provider.Web/nPact.Provider.csproj
+          PACKAGE_NAME: nPact.Provider
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+      - name: publish Consumer
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/nPact.Consumer/nPact.Consumer.csproj
+          PACKAGE_NAME: nPact.Consumer
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
+      - name: publish Consumer.Extensions
+        id: publish_nuget
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/nPact.Consumer.Extensions/nPact.Consumer.Extensions.csproj
+          PACKAGE_NAME: nPact.Consumer.Extensionsn
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+
