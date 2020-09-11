@@ -18,7 +18,7 @@ jobs:
           dotnet-version: 3.1.101
 
       - name: publish Provider.Web
-        id: publish_nuget
+        id: publish_nuget_provider_web
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: src/nPact.Provider.Web/nPact.Provider.Web.csproj
@@ -26,7 +26,7 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
       - name: publish Provider
-        id: publish_nuget
+        id: publish_nuget_provider
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: src/nPact.Provider.Web/nPact.Provider.csproj
@@ -34,7 +34,7 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
       - name: publish Consumer
-        id: publish_nuget
+        id: publish_nuget_consumer
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: src/nPact.Consumer/nPact.Consumer.csproj
@@ -42,7 +42,7 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
 
       - name: publish Consumer.Extensions
-        id: publish_nuget
+        id: publish_nuget_consumer_extensions
         uses: rohith/publish-nuget@v2
         with:
           PROJECT_FILE_PATH: src/nPact.Consumer.Extensions/nPact.Consumer.Extensions.csproj
