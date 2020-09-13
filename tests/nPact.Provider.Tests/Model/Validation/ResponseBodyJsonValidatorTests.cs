@@ -84,7 +84,7 @@ namespace nPact.Provider.Tests.Model.Validation
 
             var result = target.Validate(expected, actual);
 
-            Assert.Equal("Array is supposed to be empty at _f[0]._i in body.", result);
+            Assert.Equal("Array is supposed to be empty at _f[0]._i in body.\n", result);
         }
 
         [Fact]
@@ -96,7 +96,7 @@ namespace nPact.Provider.Tests.Model.Validation
 
             var result = target.Validate(expected, actual);
 
-            Assert.Equal("Cannot find timeEntries in body.", result);
+            Assert.Equal("Cannot find timeEntries in body.\nCannot find timesheetLockDate in body.", result);
         }
     }
 }
