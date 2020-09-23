@@ -10,7 +10,7 @@
     <Description>An extension library to nPact.Consumer</Description>
     <Company />
     <Product>nPact</Product>
-    <PackageVersion>1.0.1-rc</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Authors>Øyvind Skaar, Rodrigo Ramos</Authors>
     <Copyright />
     <PackageProjectUrl>https://github.com/rodrigoramos/nPact</PackageProjectUrl>
