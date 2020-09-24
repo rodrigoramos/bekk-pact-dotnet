@@ -16,6 +16,7 @@ namespace nPact.Consumer.Matching
             Template = template ?? throw new ArgumentNullException(nameof(template));
             Config = config;
         }
+
         public virtual bool Matches(IPactRequestDefinition request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
@@ -26,31 +27,41 @@ namespace nPact.Consumer.Matching
             {
                 if (request.RequestHeaders[header.Key]?.Equals(header.Value) != true) return false;
             }
+
             var bodyComparison = new BodyComparer(Template, Config);
             return bodyComparison.Matches(request);
         }
+
         public virtual JObject DiffGram(IPactRequestDefinition request)
         {
             if (request == null) throw new ArgumentNullException(nameof(request));
             dynamic diff = new JObject();
-            if (Template.HttpVerb != request.HttpVerb) diff.Add("HttpVerb", GetDiff(Template.HttpVerb, request.HttpVerb));
-            if (!CompareAcceptEmptyAsNull(Template.RequestPath, request.RequestPath)) diff.Add("Path", GetDiff(Template.RequestPath, request.RequestPath));
-            if (!CompareAcceptEmptyAsNull(Template.Query, request.Query)) diff.Add("Query", GetDiff(Template.Query, request.Query));
-            var headers = Template.RequestHeaders.Where(expected => true != request.RequestHeaders[expected.Key]?.Equals(expected.Value)).ToList();
-            if(headers.Any()){
+            if (Template.HttpVerb != request.HttpVerb)
+                diff.Add("HttpVerb", GetDiff(Template.HttpVerb, request.HttpVerb));
+            if (!CompareAcceptEmptyAsNull(Template.RequestPath, request.RequestPath))
+                diff.Add("Path", GetDiff(Template.RequestPath, request.RequestPath));
+            if (!CompareAcceptEmptyAsNull(Template.Query, request.Query))
+                diff.Add("Query", GetDiff(Template.Query, request.Query));
+            var headers = Template.RequestHeaders
+                .Where(expected => true != request.RequestHeaders[expected.Key]?.Equals(expected.Value)).ToList();
+            if (headers.Any())
+            {
                 dynamic headersDiff = new JObject();
-                foreach(var header in headers)
+                foreach (var header in headers)
                 {
                     headersDiff.Add(header.Key, GetDiff(header.Value, request.RequestHeaders[header.Key]));
                 }
+
                 diff.Add("headers", headersDiff);
             }
+
             var bodyComparison = new BodyComparer(Template, Config);
             var bodies = bodyComparison.DiffGram(request);
-            if(bodies != null)
+            if (bodies != null)
             {
                 diff.Add("body", bodies);
             }
+
             return diff;
         }
 
@@ -61,12 +72,25 @@ namespace nPact.Consumer.Matching
             diff.Add("actual", actual);
             return diff;
         }
-      
+
+        private static string GetAllValuesAsStringOrDefault(JToken token)
+            => token?.Children().Aggregate((first, second) => $"{first},{second}").ToString();
+        
+        private JValue ConvertToValue(JToken token) =>
+            token switch
+            {
+                JValue value => value,
+                _ => new JValue(GetAllValuesAsStringOrDefault(token) ?? "<Member missing>")
+            };
+
         protected JObject GetDiff(JToken expected, JToken actual)
         {
+            var expectedValue = ConvertToValue(expected);
+            var actualValue = ConvertToValue(actual);
+
             dynamic diff = new JObject();
-            diff.Add("expected", expected);
-            diff.Add("actual", actual);
+            diff.Add("expected", expectedValue);
+            diff.Add("actual", actualValue);
             return diff;
         }
 
