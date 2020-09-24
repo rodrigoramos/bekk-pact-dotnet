@@ -8,7 +8,7 @@
     <PackageLicenseUrl>https://github.com/rodrigoramos/nPact/blob/master/Licence.txt</PackageLicenseUrl>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/rodrigoramos/nPact/</RepositoryUrl>
-    <PackageVersion>1.0.0</PackageVersion>
+    <PackageVersion>1.0.1</PackageVersion>
     <Company />
     <Product>nPact</Product>
   </PropertyGroup>
