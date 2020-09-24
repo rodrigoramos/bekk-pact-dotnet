@@ -11,7 +11,7 @@ namespace nPact.Consumer.Tests.Matching
 {
     public class BodyComparerTests
     {
-        private Mock<IConsumerConfiguration> _configurationMock;
+        private readonly Mock<IConsumerConfiguration> _configurationMock;
 
         public BodyComparerTests()
         {
@@ -43,7 +43,7 @@ namespace nPact.Consumer.Tests.Matching
         }
         
         [Fact]
-        public void GivinAMissingPropertyObject_WhenMatching_ShouldReturnFalse()
+        public void GivinAMissingNestedPropertyObject_WhenMatching_ShouldReturnFalse()
         {
             var expectedRequest = GetRequestDefinition(new {object1 = new {prop1 = "value1"}});
             var actualRequest = GetRequestDefinition(new {object1 = new {prop2 = "value2"}});
@@ -52,12 +52,12 @@ namespace nPact.Consumer.Tests.Matching
 
             bodyComparer.Matches(actualRequest).Should().BeFalse();
         }
-
+        
         [Fact]
-        public void GivinAMissingPropertyObject_WhenDiffing_ShouldReturnDifferenceDescription()
+        public void GivinAMissingNestedPropertyObject_WhenDiffing_ShouldReturnDifferenceDescription()
         {
             var expectedRequest = GetRequestDefinition(new {object1 = new {prop1 = "value1"}});
-            var actualRequest = GetRequestDefinition(new {object1 = new {prop2 = "value2"}});
+            var actualRequest = GetRequestDefinition(new {object1 = new {otherStuff = "otherValue"}});
 
             var bodyComparer = new BodyComparer(expectedRequest, _configurationMock.Object);
 
@@ -65,8 +65,25 @@ namespace nPact.Consumer.Tests.Matching
                 .Should().ContainKey("object1.prop1")
                 .WhichValue?.ToString()
                 .Should().BeEquivalentTo(@"{
-  ""expected"": ""Member object1.prop1"",
-  ""actual"": ""Member missing""
+  ""expected"": ""value1"",
+  ""actual"": ""<Member missing>""
+}");
+        }
+
+        [Fact]
+        public void GivinAMissingPropertyObject_WhenDiffing_ShouldReturnDifferenceDescription()
+        {
+            var expectedRequest = GetRequestDefinition(new {object1 = new {prop1 = "value1", prop2 = "value2"}});
+            var actualRequest = GetRequestDefinition(new {object2 = new {otherStuff = "otherValue"}});
+
+            var bodyComparer = new BodyComparer(expectedRequest, _configurationMock.Object);
+
+            bodyComparer.DiffGram(actualRequest)
+                .Should().ContainKey("object1")
+                .WhichValue?.ToString()
+                .Should().BeEquivalentTo(@"{
+  ""expected"": ""{\n  \""prop1\"": \""value1\"",\n  \""prop2\"": \""value2\""\n}"",
+  ""actual"": ""<Member missing>""
 }");
         }
 

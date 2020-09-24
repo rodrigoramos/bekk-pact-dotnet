@@ -73,11 +73,14 @@ namespace nPact.Consumer.Matching
             return diff;
         }
 
+        private static string GetAllValuesAsStringOrDefault(JToken token)
+            => token?.Children().Aggregate((first, second) => $"{first},{second}").ToString();
+        
         private JValue ConvertToValue(JToken token) =>
             token switch
             {
                 JValue value => value,
-                _ => new JValue($"Member {token?.Path ?? "missing"}")
+                _ => new JValue(GetAllValuesAsStringOrDefault(token) ?? "<Member missing>")
             };
 
         protected JObject GetDiff(JToken expected, JToken actual)
