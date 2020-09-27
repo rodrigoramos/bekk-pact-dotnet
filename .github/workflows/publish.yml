@@ -17,12 +17,12 @@ jobs:
         with:
           dotnet-version: 3.1.101
 
-      - name: publish Provider.Web
-        id: publish_nuget_provider_web
+      - name: publish Common
+        id: publish_nuget_common
         uses: rohith/publish-nuget@v2
         with:
-          PROJECT_FILE_PATH: src/nPact.Provider.Web/nPact.Provider.Web.csproj
-          PACKAGE_NAME: nPact.Provider.Web
+          PROJECT_FILE_PATH: src/nPact.Common/nPact.Common.csproj
+          PACKAGE_NAME: nPact.Common
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           TAG_COMMIT: false
           VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
@@ -33,6 +33,16 @@ jobs:
         with:
           PROJECT_FILE_PATH: src/nPact.Provider/nPact.Provider.csproj
           PACKAGE_NAME: nPact.Provider
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          TAG_COMMIT: false
+
+          VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
+      - name: publish Provider.Web
+        id: publish_nuget_provider_web
+        uses: rohith/publish-nuget@v2
+        with:
+          PROJECT_FILE_PATH: src/nPact.Provider.Web/nPact.Provider.Web.csproj
+          PACKAGE_NAME: nPact.Provider.Web
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           TAG_COMMIT: false
           VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
@@ -56,4 +66,5 @@ jobs:
           NUGET_KEY: ${{secrets.NUGET_API_KEY}}
           TAG_COMMIT: false
           VERSION_REGEX: ^\s*<PackageVersion>(.*)<\/PackageVersion>\s*$
+
 
