@@ -7,6 +7,12 @@ namespace nPact.Samples.Provider.Controllers
     public class HelloController : ControllerBase
     {
         [HttpGet("{name:alpha}")]
-        public IActionResult SayHello([FromRoute] string name) => Ok($"Hello, {name}");
+        public IActionResult SayHello([FromRoute] string name)
+        {
+            return Ok(new
+            {
+                message = $"Hello, {name}"
+            });
+        }
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System.Net.Http;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace nPact.Samples.Consumer
 {
     public class HelloApiConsumer
     {
-        public const string HelloApiBaseUrl = "https://localhost:5001/";
+        public const string HelloApiBaseUrl = "http://localhost:5001/";
 
         public async Task<string> SayHello(string name = "World")
         {
@@ -13,9 +14,23 @@ namespace nPact.Samples.Consumer
 
             var httpClient = new HttpClient();
 
-            var result = await httpClient.GetStringAsync(url);
+            var httpResponse = await httpClient.GetAsync(url);
 
-            return result;
+            var contentStream = await httpResponse.EnsureSuccessStatusCode()
+                .Content
+                .ReadAsStreamAsync();
+
+            var result = await JsonSerializer.DeserializeAsync<HelloMessage>(contentStream, new JsonSerializerOptions
+            {
+                PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+            });
+
+            return result.Message;
+        }
+
+        public class HelloMessage
+        {
+            public string Message { get; set; }
         }
     }
 }

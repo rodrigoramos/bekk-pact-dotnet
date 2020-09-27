@@ -8,14 +8,17 @@ namespace nPact.Samples.ConsumerTests
     {
         private Context _serverContext;
 
+        private string PactsLocation = @"..\..\..\..\sample-pacts";
+        private string LogsLocation = @"..\..\..\contract.log";
+
         [OneTimeSetUp]
         public void FixtureSetUp()
         {
             var configuration = Configuration.With
                 .LogLevel(Common.Contracts.LogLevel.Verbose)
                 .MockServiceBaseUri("http://localhost:5001")
-                .LogFile(@"..\..\..\contract.log")
-                .PublishPath(@"C:\Users\jeos9\Source\repos\nPact\samples\sample-pacts");
+                .LogFile(LogsLocation)
+                .PublishPath(PactsLocation);
 
             _serverContext = new Context(configuration)
                 .ForConsumer("nPact.Samples.Consumer");

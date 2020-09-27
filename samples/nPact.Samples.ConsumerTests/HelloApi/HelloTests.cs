@@ -19,15 +19,15 @@ namespace nPact.Samples.ConsumerTests.HelloApi
         public void SetUp() => _helloApiConsumer = new HelloApiConsumer();
 
         [Test]
-        public async Task ACallToProvidersHelloApireturnsAHelloMessage()
+        public async Task APactWithTheHelloApi()
         {
             var name = "World";
 
-            var expectedBody = new Jsonable("Hello, World");
+            var expectedBody = new Jsonable(@"{ message: ""Hello, World"" }");
 
             using var helloApiPact = await PactBuilder.Build()
                 .ForProvider(ProviderName)
-                .Given(@"Hello Api is called with ""World"" as Name parameter")
+                .Given(@"The Hello Api Is Called With ""World"" as name")
                 .WhenRequesting($"/api/hello/{name}")
                 .ThenRespondsWith(HttpStatusCode.OK)
                 .WithBody(expectedBody)
@@ -35,7 +35,7 @@ namespace nPact.Samples.ConsumerTests.HelloApi
 
             var result = await _helloApiConsumer.SayHello(name);
 
-            result.Should().Be("Hello, World");
+            result.Should().BeEquivalentTo("Hello, World");
         }
     }
 }
