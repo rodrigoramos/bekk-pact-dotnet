@@ -25,11 +25,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{11B2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nPact.Samples.Provider", "samples\nPact.Samples.Provider\nPact.Samples.Provider.csproj", "{8D41DEA5-DF89-4CE8-B742-2A22525D6727}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples-pacts", "samples-pacts", "{AA49C3BA-5FC4-45EA-BC80-3E5DA3E3F5F0}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nPact.Samples.ConsumerTests", "samples\nPact.Samples.ConsumerTests\nPact.Samples.ConsumerTests.csproj", "{C4B4F04B-867C-45E7-AAE9-A650F43AA2A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "nPact.Samples.Consumer", "samples\nPact.Samples.Consumer\nPact.Samples.Consumer.csproj", "{4A85A77B-08C7-4EDE-BAAE-D8D3E1AC228D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "nPact.Samples.Consumer", "samples\nPact.Samples.Consumer\nPact.Samples.Consumer.csproj", "{4A85A77B-08C7-4EDE-BAAE-D8D3E1AC228D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,7 +83,6 @@ Global
 		{8401B888-8A5D-43F5-83E9-34CB9B8A8628} = {B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}
 		{AD55C65F-CDE3-46A1-9F8B-CA5BC3594069} = {B3A6CBCB-5C43-41AF-9ED7-3FEEE310A53E}
 		{8D41DEA5-DF89-4CE8-B742-2A22525D6727} = {11B28CE5-13CF-4CEF-9E66-6D65AFC0CD20}
-		{AA49C3BA-5FC4-45EA-BC80-3E5DA3E3F5F0} = {11B28CE5-13CF-4CEF-9E66-6D65AFC0CD20}
 		{C4B4F04B-867C-45E7-AAE9-A650F43AA2A8} = {11B28CE5-13CF-4CEF-9E66-6D65AFC0CD20}
 		{4A85A77B-08C7-4EDE-BAAE-D8D3E1AC228D} = {11B28CE5-13CF-4CEF-9E66-6D65AFC0CD20}
 	EndGlobalSection
