@@ -1,4 +1,6 @@
 ﻿using System.Net;
+using System.Net.Http;
+using System;
 using System.Threading.Tasks;
 using FluentAssertions;
 using nPact.Common.Utils;
@@ -15,8 +17,18 @@ namespace nPact.Samples.ConsumerTests.HelloApi
 
         private HelloApiConsumer _helloApiConsumer;
 
+        private HttpClient _httpClient;
+
         [SetUp]
-        public void SetUp() => _helloApiConsumer = new HelloApiConsumer();
+        public void SetUp()
+        {
+            _httpClient = new HttpClient()
+            {
+                BaseAddress = new Uri("http://localhost:5001/")
+            };
+
+            _helloApiConsumer = new HelloApiConsumer(_httpClient);
+        }
 
         [Test]
         public async Task APactWithTheHelloApi()

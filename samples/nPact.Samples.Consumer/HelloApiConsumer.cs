@@ -6,15 +6,15 @@ namespace nPact.Samples.Consumer
 {
     public class HelloApiConsumer
     {
-        public const string HelloApiBaseUrl = "http://localhost:5001/";
+        private readonly HttpClient _httpClient;
+
+        public HelloApiConsumer(HttpClient httpClient) => this._httpClient = httpClient;
 
         public async Task<string> SayHello(string name = "World")
         {
-            var url = $"{HelloApiBaseUrl}api/hello/{name}";
+            var url = $"api/hello/{name}";
 
-            var httpClient = new HttpClient();
-
-            var httpResponse = await httpClient.GetAsync(url);
+            var httpResponse = await _httpClient.GetAsync(url);
 
             var contentStream = await httpResponse.EnsureSuccessStatusCode()
                 .Content
