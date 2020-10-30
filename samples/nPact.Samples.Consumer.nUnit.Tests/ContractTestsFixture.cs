@@ -2,7 +2,7 @@
 using nPact.Consumer.Server;
 using NUnit.Framework;
 
-namespace nPact.Samples.ConsumerTests
+namespace nPact.Samples.Consumer.nUnit.Tests
 {
     class ContractTestsFixture
     {
