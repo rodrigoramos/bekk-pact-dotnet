@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using nPact.Consumer.Config;
 using nPact.Consumer.Server;
 using Xunit.Abstractions;
@@ -6,10 +7,10 @@ using Xunit.Sdk;
 
 namespace nPact.Samples.Consumer.XUnit.Tests
 {
-    public class ContractTestsFixture : IDisposable
+    class ContractTestsFixture : IDisposable
     {
-        private const string PactsLocation = @"..\..\..\..\sample-pacts";
-        private const string LogsLocation = @"..\..\..\contract.log";
+        private readonly string _pactsLocation = Path.Combine("..", "..", "..", "sample-pacts");
+        private readonly string _logsLocation = Path.Combine("..", "..", "..", "contract.log");
 
         private readonly Context _serverContext;
 
@@ -18,9 +19,9 @@ namespace nPact.Samples.Consumer.XUnit.Tests
             var configuration = Configuration.With
                 .LogLevel(Common.Contracts.LogLevel.Verbose)
                 .MockServiceBaseUri("http://localhost:5001")
-                .LogFile(LogsLocation)
+                .LogFile(_logsLocation)
                 .Log(logMessage => diagnosticMessageSink.OnMessage(new DiagnosticMessage(logMessage)))
-                .PublishPath(PactsLocation);
+                .PublishPath(_pactsLocation);
 
             _serverContext = new Context(configuration)
                 .ForConsumer("nPact.Samples.Consumer");
