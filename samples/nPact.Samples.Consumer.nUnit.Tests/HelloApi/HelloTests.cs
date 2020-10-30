@@ -8,7 +8,7 @@ using nPact.Consumer.Builders;
 using nPact.Samples.Consumer;
 using NUnit.Framework;
 
-namespace nPact.Samples.ConsumerTests.HelloApi
+namespace nPact.Samples.Consumer.nUnit.Tests.HelloApi
 {
     [TestFixture]
     class HelloTests : ContractTestsFixture

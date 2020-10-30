@@ -1,15 +1,16 @@
-﻿using nPact.Consumer.Config;
+﻿using System.IO;
+using nPact.Consumer.Config;
 using nPact.Consumer.Server;
 using NUnit.Framework;
 
-namespace nPact.Samples.ConsumerTests
+namespace nPact.Samples.Consumer.nUnit.Tests
 {
     class ContractTestsFixture
     {
         private Context _serverContext;
 
-        private string PactsLocation = @"..\..\..\..\sample-pacts";
-        private string LogsLocation = @"..\..\..\contract.log";
+        private readonly string _pactsLocation = Path.Combine("..", "..", "..", "sample-pacts");
+        private readonly string _logsLocation = Path.Combine("..", "..", "..", "contract.log");
 
         [OneTimeSetUp]
         public void FixtureSetUp()
@@ -17,8 +18,8 @@ namespace nPact.Samples.ConsumerTests
             var configuration = Configuration.With
                 .LogLevel(Common.Contracts.LogLevel.Verbose)
                 .MockServiceBaseUri("http://localhost:5001")
-                .LogFile(LogsLocation)
-                .PublishPath(PactsLocation);
+                .LogFile(_logsLocation)
+                .PublishPath(_pactsLocation);
 
             _serverContext = new Context(configuration)
                 .ForConsumer("nPact.Samples.Consumer");
