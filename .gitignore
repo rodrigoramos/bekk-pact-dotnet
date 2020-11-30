@@ -341,3 +341,5 @@ healthchecksdb
 
 # Cake Tools
 tools/
+
+samples/sample-pacts/
