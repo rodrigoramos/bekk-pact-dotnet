@@ -13,5 +13,10 @@ namespace nPact.Consumer.Contracts
         /// </summary>
         /// <param name="body">An object serializable to json.</param>
         TBuilder WithBody(IJsonable body);
+        /// <summary>
+        /// Define the message body.
+        /// </summary>
+        /// <param name="body">An object serializable to json.</param>
+        TBuilder WithBody(object body);
     }
 }

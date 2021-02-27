@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Reflection;
 using System.Threading.Tasks;
 using nPact.Common.Contracts;
 using nPact.Common.Utils;
@@ -15,11 +14,12 @@ using IPact = nPact.Consumer.Contracts.IPact;
 
 namespace nPact.Consumer.Builders
 {
-    class InteractionBuilder : IRequestPathBuilder, IRequestBuilder, IResponseBuilder, Contracts.IPact, IPactInteractionDefinition, IPactDefinition
+    class InteractionBuilder : IRequestPathBuilder, IRequestBuilder, IResponseBuilder, IPact,
+        IPactInteractionDefinition, IPactDefinition
     {
-        private readonly IConsumerConfiguration configuration;
-        private readonly List<string> queries = new List<string>();
-        private IVerifyAndClosable handler;
+        private readonly IConsumerConfiguration _configuration;
+        private readonly List<string> _queries = new();
+        private IVerifyAndClosable _handler;
         public string State { get; }
         public Version Version { get; }
         public string Description { get; }
@@ -27,23 +27,26 @@ namespace nPact.Consumer.Builders
         public string Consumer { get; }
         public string RequestPath { get; private set; }
         public IJsonable RequestBody { get; private set; }
-        public string Query => queries.Any() ? $"?{string.Join("&", queries)}" : null;
+        public string Query => _queries.Any() ? $"?{string.Join("&", _queries)}" : null;
         public IHeaderCollection RequestHeaders { get; } = new HeaderCollection();
         public IHeaderCollection ResponseHeaders { get; } = new HeaderCollection();
         public string HttpVerb { get; private set; } = "GET";
         public int? ResponseStatusCode { get; private set; }
         public IJsonable ResponseBody { get; private set; }
 
-        public InteractionBuilder(string state, string consumer, string provider, string description, Version version, IConsumerConfiguration config)
+        public InteractionBuilder(string state, string consumer, string provider, string description, Version version,
+            IConsumerConfiguration config)
         {
-            if(string.IsNullOrWhiteSpace(consumer)) throw new ArgumentException("Please provide a consumer name", nameof(consumer));
-            if(string.IsNullOrWhiteSpace(provider)) throw new ArgumentException("Please provide a provider name", nameof(provider));
-            this.configuration = config;
+            if (string.IsNullOrWhiteSpace(consumer))
+                throw new ArgumentException("Please provide a consumer name", nameof(consumer));
+            if (string.IsNullOrWhiteSpace(provider))
+                throw new ArgumentException("Please provide a provider name", nameof(provider));
+            this._configuration = config;
             State = state;
             Consumer = consumer;
             Provider = provider;
             Description = description;
-            Version = version ?? new Version(1,0);
+            Version = version ?? new Version(1, 0);
         }
 
         IRequestBuilder IRequestPathBuilder.WhenRequesting(string path)
@@ -54,7 +57,7 @@ namespace nPact.Consumer.Builders
 
         IRequestBuilder IRequestBuilder.WithQuery(string key, string value)
         {
-            queries.Add($"{WebUtility.UrlEncode(key)}={WebUtility.UrlEncode(value)}");
+            _queries.Add($"{WebUtility.UrlEncode(key)}={WebUtility.UrlEncode(value)}");
             return this;
         }
 
@@ -65,10 +68,17 @@ namespace nPact.Consumer.Builders
             HttpVerb = verb;
             return this;
         }
-    
+
         IRequestBuilder IMessageBuilder<IRequestBuilder>.WithBody(IJsonable body)
         {
             RequestBody = body;
+            return this;
+        }
+
+
+        IRequestBuilder IMessageBuilder<IRequestBuilder>.WithBody(object body)
+        {
+            RequestBody = new JsonBody(body);
             return this;
         }
 
@@ -78,7 +88,8 @@ namespace nPact.Consumer.Builders
             return this;
         }
 
-        IResponseBuilder IRequestBuilder.ThenRespondsWith(HttpStatusCode statusCode) => ((IRequestBuilder) this).ThenRespondsWith((int) statusCode);
+        IResponseBuilder IRequestBuilder.ThenRespondsWith(HttpStatusCode statusCode) =>
+            ((IRequestBuilder) this).ThenRespondsWith((int) statusCode);
 
         IResponseBuilder IMessageBuilder<IResponseBuilder>.WithHeader(string key, params string[] values)
         {
@@ -92,29 +103,35 @@ namespace nPact.Consumer.Builders
             return this;
         }
 
-        async Task<Contracts.IPact> IResponseBuilder.InPact()
+        IResponseBuilder IMessageBuilder<IResponseBuilder>.WithBody(object body)
         {
-            handler = await Context.RegisterListener(this, configuration);
+            ResponseBody = new JsonBody(body);
             return this;
         }
 
-        void Contracts.IPact.Verify()
+        async Task<IPact> IResponseBuilder.InPact()
         {
-            var matches = handler.VerifyAndClose(1);
-            if(matches != 1) throw new Exception($"The pact was matched {matches} times. Expected one.");
+            _handler = await Context.RegisterListener(this, _configuration);
+            return this;
+        }
+
+        void IPact.Verify()
+        {
+            var matches = _handler.VerifyAndClose();
+            if (matches != 1) throw new Exception($"The pact was matched {matches} times. Expected one.");
         }
 
         private async Task Save()
         {
-            using(var repo = new PactRepo(configuration))
+            using (var repo = new PactRepo(_configuration))
             {
                 await repo.Put(this);
             }
         }
 
-        async Task Contracts.IPact.VerifyAndSave()
+        async Task IPact.VerifyAndSave()
         {
-            var pact = (Contracts.IPact)this;
+            var pact = (IPact) this;
             pact.Verify();
             await Save();
         }
@@ -125,15 +142,10 @@ namespace nPact.Consumer.Builders
             return this;
         }
 
-        IEnumerable<IPactInteractionDefinition> IPactDefinition.Interactions => new []{this};
-        public void Dispose()
-        {
-            handler.VerifyAndClose(1);
-        }
+        IEnumerable<IPactInteractionDefinition> IPactDefinition.Interactions => new[] {this};
 
-        public override string ToString()
-        {
-            return new PactJsonRenderer(this).ToString();
-        }
+        public void Dispose() => _handler.VerifyAndClose();
+
+        public override string ToString() => new PactJsonRenderer(this).ToString();
     }
 }
