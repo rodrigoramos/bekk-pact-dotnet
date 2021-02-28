@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json.Linq;
@@ -51,14 +52,14 @@ namespace nPact.Consumer.Tests.Rendering
         }
 
         [Fact]
-        public void RenderWithList_ShouldParseAsJArrayObject()
+        public void RenderWithIEnumerable_ShouldParseAsJArrayObject()
         {
-            var bodyArray = new List<string> {"value1", "value2"};
+            var bodyArray = new List<string> {"value1", "value2"}.AsEnumerable();
             var jBody = new JsonBody(bodyArray);
 
             jBody.Render()
                 .Should().BeOfType<JArray>()
-                .Which.Count.Should().Be(bodyArray.Count);
+                .Which.Count.Should().Be(2);
         }
 
         [Fact]
