@@ -26,8 +26,8 @@ namespace nPact.Consumer.Rendering
             {
                 string serialized => JObject.Parse(serialized),
                 IJsonable json => json.Render(),
-                IDictionary => JObject.FromObject(body, JsonSerializer.Create(settings)),
-                IEnumerable => JArray.FromObject(body, JsonSerializer.Create(settings)),
+                IDictionary _ => JObject.FromObject(body, JsonSerializer.Create(settings)),
+                IEnumerable _ => JArray.FromObject(body, JsonSerializer.Create(settings)),
                 _ => JObject.FromObject(body, JsonSerializer.Create(settings))
             };
         }

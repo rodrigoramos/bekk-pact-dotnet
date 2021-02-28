@@ -18,7 +18,7 @@ namespace nPact.Consumer.Builders
         IPactInteractionDefinition, IPactDefinition
     {
         private readonly IConsumerConfiguration _configuration;
-        private readonly List<string> _queries = new();
+        private readonly List<string> _queries = new List<string>();
         private IVerifyAndClosable _handler;
         public string State { get; }
         public Version Version { get; }

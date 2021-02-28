@@ -46,8 +46,7 @@ namespace nPact.Consumer.Tests.Rendering
             var bodyArray = new[] {"value1", "value2"};
             var jBody = new JsonBody(bodyArray);
 
-            jBody.Render()
-                .Should().BeOfType<JArray>()
+            jBody.Render().Should().BeOfType<JArray>()
                 .Which.Count.Should().Be(bodyArray.Length);
         }
 
