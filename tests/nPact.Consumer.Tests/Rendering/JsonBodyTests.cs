@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using FluentAssertions;
 using Moq;
 using Newtonsoft.Json.Linq;
@@ -34,38 +36,40 @@ namespace nPact.Consumer.Tests.Rendering
             var jBody = new JsonBody(jsonObjectString);
 
             jBody.Render()
-                .Should()
-                    .BeOfType<JObject>()
-                .Which
-                    .GetValue("prop1").Value<string>().Should().Be("value");
-
+                .Should().BeOfType<JObject>()
+                .Which.ContainsKey("prop1").Should().BeTrue();
         }
 
         [Fact]
         public void RenderWithArray_ShouldParseAsJArrayObject()
         {
-            var bodyArray = new[] { "value1", "value2" };
+            var bodyArray = new[] {"value1", "value2"};
             var jBody = new JsonBody(bodyArray);
 
-            jBody.Render()
-                .Should()
-                    .BeOfType<JArray>()
-                .Which
-                    .Count.Should().Be(bodyArray.Length);
-
+            jBody.Render().Should().BeOfType<JArray>()
+                .Which.Count.Should().Be(bodyArray.Length);
         }
 
         [Fact]
-        public void RenderWithObject_ShouldCreateAJObject() 
+        public void RenderWithIEnumerable_ShouldParseAsJArrayObject()
         {
-            var jObject = new { prop1 = "value1" };
+            var bodyArray = new List<string> {"value1", "value2"}.AsEnumerable();
+            var jBody = new JsonBody(bodyArray);
+
+            jBody.Render()
+                .Should().BeOfType<JArray>()
+                .Which.Count.Should().Be(2);
+        }
+
+        [Fact]
+        public void RenderWithObject_ShouldCreateAJObject()
+        {
+            var jObject = new {prop1 = "value1"};
             var jBody = new JsonBody(jObject);
 
             jBody.Render()
-                .Should()
-                    .BeOfType<JObject>()
-                .Which
-                    .GetValue("prop1").Value<string>().Should().Be("value1");
+                .Should().BeOfType<JObject>()
+                .Which.ContainsKey("prop1").Should().BeTrue();
         }
     }
 }
